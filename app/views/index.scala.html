@@ -1,0 +1,33 @@
+@(message: String)(bankForm: Form[Application.BankForm])
+@import helper._
+
+
+@main("Welcome to Play") {
+
+    @message
+    @helper.form(action = routes.Application.getIban()) {
+ 	   @if(bankForm.hasGlobalErrors) {
+		    <p class="error">
+		        @bankForm.globalError.message
+    		</p>
+		}
+       @inputText(
+            bankForm("accountno"),
+            'placeholder -> "Kontonr",
+            '_label -> null,
+            '_help -> "Kontonummer",
+            'class -> "form-control",
+            'maxlength -> 10
+        )
+        @inputText(
+            bankForm("blz"),
+            '_label -> null,
+            'placeholder -> "BLZ",
+            '_help -> "Bankleitzahl",
+            'class -> "form-control",
+            'maxlength -> 8
+        )
+         <input type="submit" class="btn btn-primary" value="IBAN berechnen">
+    }
+
+}
